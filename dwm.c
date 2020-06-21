@@ -2167,6 +2167,7 @@ main(int argc, char *argv[])
 		die("dwm: cannot open display");
 	checkotherwm();
 	setup();
+	system("test -x ~/.config/dwm/startup && ~/.config/dwm/startup&");
 #ifdef __OpenBSD__
 	if (pledge("stdio rpath proc exec", NULL) == -1)
 		die("pledge");
