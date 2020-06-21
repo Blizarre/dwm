@@ -65,6 +65,7 @@ static const char *brightnessdowncmd[] = { "systemcontrol", "brightness", "down"
 static const char *volumeupcmd[] = { "amixer", "-M", "sset", "Master", "10%+", "unmute", NULL};
 static const char *volumedowncmd[] = { "amixer", "-M", "sset", "Master", "10%-", "unmute", NULL};
 static const char *volumemutecmd[] = { "amixer", "-M", "sset", "Master", "mute", NULL};
+static const char *suspend[] = { "sudo", "systemctl", "suspend-then-hibernate", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -77,6 +78,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_f,      fullscreen,       {0} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = suspend } },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, // tiled
 	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[1]} }, // floating
 	TAGKEYS(                        XK_1,                      0)
