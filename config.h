@@ -66,11 +66,12 @@ static const char *volumeupcmd[] = { "amixer", "-M", "sset", "Master", "10%+", "
 static const char *volumedowncmd[] = { "amixer", "-M", "sset", "Master", "10%-", "unmute", NULL};
 static const char *volumemutecmd[] = { "amixer", "-M", "sset", "Master", "mute", NULL};
 static const char *suspend[] = { "sudo", "systemctl", "suspend-then-hibernate", NULL};
+static const char *lock[] = { "xautolock", "-locknow", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_space,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_space, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,             XK_space,  spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
@@ -79,6 +80,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = suspend } },
+	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lock } },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, // tiled
 	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[1]} }, // floating
 	TAGKEYS(                        XK_1,                      0)
