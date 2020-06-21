@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Lock the screen after 10 minutes
+xautolock -time 10 -locker slock&
+
+# Invert scrolling
+xinput --set-prop 'Synaptics TM3072-003' "libinput Natural Scrolling Enabled" 1
+
+# Set wallpapaer
+feh --bg-scale ~/wallpaper.jpg
+
+# Update screen color balance depending on the natural light color
+redshift -t6500:2700&
+
+# dwm status message update
+while true; do
+    # volume=" $(amixer sget Master | awk -F"[][]" '/%/ { print $2 }' | head -n 1)"
+    power=" $(cat /sys/class/power_supply/BAT0/capacity)%"
+    xsetroot -name " $(date +" %a %d %b  %H:%M") $power"
+    sleep 50
+done
