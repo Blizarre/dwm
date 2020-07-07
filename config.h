@@ -20,16 +20,19 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4" };
+static const char *tags[] = { "1", "2", "3", "4", "X" };
+static const int EXTRA_TAG = 4;
+
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "keepassxc",     "keepassxc",       NULL,       0,            1,           -1 },
-	{ "Pavucontrol",     "pavucontrol",       NULL,       0,            1,           -1 },
+	/* class             instance           title       tags mask          isfloating   monitor */
+	{ "keepassxc",       "keepassxc",       NULL,       1 << EXTRA_TAG,    1,           -1 },
+	{ "Pavucontrol",     "pavucontrol",     NULL,       1 << EXTRA_TAG,    1,           -1 },
+	{ "Blueman-manager", "blueman-manager", NULL,       1 << EXTRA_TAG,    1,           -1 },
 };
 
 /* layout(s) */
@@ -83,11 +86,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = lock } },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, // tiled
 	{ MODKEY,                       XK_n,      setlayout,      {.v = &layouts[1]} }, // floating
+	{ MODKEY,                       XK_x,      toggleview,     {.ui = 1 << EXTRA_TAG } },
+	{ MODKEY|ShiftMask,             XK_x,      tag,            {.ui = 1 << EXTRA_TAG } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
 	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
     // Media keys support
