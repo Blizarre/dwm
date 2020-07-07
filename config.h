@@ -28,8 +28,8 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ "keepassxc",     "keepassxc",       NULL,       0,            1,           -1 },
+	{ "Pavucontrol",     "pavucontrol",       NULL,       0,            1,           -1 },
 };
 
 /* layout(s) */
@@ -62,9 +62,9 @@ static const char *termcmd[]  = { "st", NULL };
 
 static const char *brightnessupcmd[] = { "systemcontrol", "brightness", "up", NULL};
 static const char *brightnessdowncmd[] = { "systemcontrol", "brightness", "down", NULL};
-static const char *volumeupcmd[] = { "amixer", "-M", "sset", "Master", "10%+", "unmute", NULL};
-static const char *volumedowncmd[] = { "amixer", "-M", "sset", "Master", "10%-", "unmute", NULL};
-static const char *volumemutecmd[] = { "amixer", "-M", "sset", "Master", "mute", NULL};
+static const char *volumeupcmd[] = { "amixer", "-D", "pulse", "-M", "sset", "Master", "10%+", "unmute", NULL};
+static const char *volumedowncmd[] = { "amixer", "-D", "pulse", "-M", "sset", "Master", "10%-", "unmute", NULL};
+static const char *volumemutecmd[] = { "amixer", "-D", "pulse", "-M", "sset", "Master", "mute", NULL};
 static const char *suspend[] = { "sudo", "systemctl", "suspend-then-hibernate", NULL};
 static const char *lock[] = { "xautolock", "-locknow", NULL};
 
