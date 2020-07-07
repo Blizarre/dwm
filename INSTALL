@@ -1,0 +1,20 @@
+external dependencies
+=====================
+
+xautolock
+dmenu
+dunst
+amixer
+feh (wallpaper)
+redshift (light)
+
+
+
+Other repos
+===========
+
+forked from suckless:
+    st
+    slock
+    dwm (contain backlight manager)
+
