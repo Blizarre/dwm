@@ -63,8 +63,11 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
-static const char *brightnessupcmd[] = { "systemcontrol", "brightness", "up", NULL};
-static const char *brightnessdowncmd[] = { "systemcontrol", "brightness", "down", NULL};
+static const char *brightnessupcmd[] = { "sudo", "systemcontrol", "brightness", "+100", "/sys/class/backlight/intel_backlight", NULL};
+static const char *brightnessdowncmd[] = { "sudo", "systemcontrol", "brightness", "-100", "/sys/class/backlight/intel_backlight", NULL};
+static const char *keysbacklightup[] = { "sudo", "systemcontrol", "brightness", "+1", "/sys/class/leds/tpacpi::kbd_backlight", NULL};
+static const char *keysbacklightdown[] = { "sudo", "systemcontrol", "brightness", "-1", "/sys/class/leds/tpacpi::kbd_backlight", NULL};
+
 static const char *volumeupcmd[] = { "amixer", "-D", "pulse", "-M", "sset", "Master", "10%+", "unmute", NULL};
 static const char *volumedowncmd[] = { "amixer", "-D", "pulse", "-M", "sset", "Master", "10%-", "unmute", NULL};
 static const char *volumemutecmd[] = { "amixer", "-D", "pulse", "-M", "sset", "Master", "mute", NULL};
@@ -95,6 +98,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
     // Media keys support
+	{ 0,                       XF86XK_KbdBrightnessUp,   spawn,      {.v = keysbacklightup} },
+	{ 0,                       XF86XK_KbdBrightnessDown, spawn,      {.v = keysbacklightdown} },
 	{ 0,                       XF86XK_MonBrightnessUp,   spawn,      {.v = brightnessupcmd} },
 	{ 0,                       XF86XK_MonBrightnessDown, spawn,      {.v = brightnessdowncmd} },
 	{ 0,                       XF86XK_AudioLowerVolume,  spawn,      {.v = volumedowncmd} },
