@@ -1,21 +1,36 @@
 #!/bin/bash
 
-# Lock the screen after 10 minutes
-xautolock -time 10 -locker slock&
+# turn the screen off after 5 minutes
+xset dpms 300 300 300
+
+# desired behavior: if I enter the password (after hibernation or startup), the system should
+# be available straight away. gsm is already configured to log me in straight after startup, but
+# xautolock and slock are not "back from hibernation aware" and will lock me out after hibernation.
+# I watn them to lock me out after "suspend", but not "hibernate", which is made difficult by the fact
+# that I am using "suspend-then-hibernate" which means that it is not possible (without dbus or parsing
+# journalctl) to know if we are back from suspend or hibernate.
+
+# The script /usr/lib/systemd/system-sleep/slock will be run on restore after a hibernate or suspend
+# and will kill slock if the journalctl contains the magic word "hibernation: hibernation exit"
+
+# lockscreen will check if we are just out of hibernation (magic word in journalctl again) and will
+# only run slock if we are not out of hibernation.
+
+# Lock the screen after 10 minutes (but not after coming back from hibernation)
+xautolock -time 10 -locker ~/bin/lockscreen&
+
 
 # Invert scrolling
 xinput --set-prop 'Synaptics TM3072-003' "libinput Natural Scrolling Enabled" 1
 
 # Set wallpapaer
-feh --bg-scale ~/wallpaper.jpg
+feh --bg-scale ~/Pictures/Crab_Nebula_wall.jpg
 
 # Update screen color balance depending on the natural light color
 redshift -t6500:2700&
 
 # dwm status message update
 while true; do
-    # volume=" $(amixer sget Master | awk -F"[][]" '/%/ { print $2 }' | head -n 1)"
-    power=" $(cat /sys/class/power_supply/BAT0/capacity)%"
-    xsetroot -name " $(date +" %a %d %b  %H:%M") $power"
+    update_banner
     sleep 50
 done
