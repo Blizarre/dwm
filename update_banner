@@ -1,0 +1,4 @@
+#!/bin/bash
+
+power=" $(cat /sys/class/power_supply/BAT0/capacity)%"
+xsetroot -name " $(date +" %a %d %b  %H:%M") $power"

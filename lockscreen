@@ -1,0 +1,16 @@
+#!/bin/bash
+
+sleep 1
+if sudo journalctl --since -2m | grep -q "hibernation: hibernation exit"; then
+  echo "[lockscreen] Just returning from hibernation, do not lock"
+else
+  echo "[lockscreen] Locking + suspend-then-hibernate..."
+  # Turn the screen off after 5s.
+  xset dpms 5 5 5
+  slock&
+  sudo systemctl suspend-then-hibernate&
+  wait -f
+  # Turn the screen off after 5m
+  xset dpms 300 300 300
+fi
+update_banner
