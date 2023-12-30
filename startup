@@ -24,7 +24,8 @@ xautolock -time 10 -locker ~/bin/lockscreen&
 xinput --set-prop 'Synaptics TM3072-003' "libinput Natural Scrolling Enabled" 1
 
 # Set wallpapaer
-feh --bg-scale ~/Pictures/Crab_Nebula_wall.jpg
+feh --bg-max --randomize ~/wallpaper/
+
 
 # Update screen color balance depending on the natural light color
 redshift -t6500:2700&
