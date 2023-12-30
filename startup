@@ -6,7 +6,7 @@ xset dpms 300 300 300
 # desired behavior: if I enter the password (after hibernation or startup), the system should
 # be available straight away. gsm is already configured to log me in straight after startup, but
 # xautolock and slock are not "back from hibernation aware" and will lock me out after hibernation.
-# I watn them to lock me out after "suspend", but not "hibernate", which is made difficult by the fact
+# I want them to lock me out after "suspend", but not "hibernate", which is made difficult by the fact
 # that I am using "suspend-then-hibernate" which means that it is not possible (without dbus or parsing
 # journalctl) to know if we are back from suspend or hibernate.
 
